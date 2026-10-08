@@ -1,0 +1,127 @@
+/* ==========================================================================
+   globals.css — Site-wide base typography & resets
+   Import this once in app/layout.tsx (above component CSS imports)
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ---------- Base font: medium weight everywhere ---------- */
+body {
+  font-family: "Poppins", "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-weight: 500; /* medium */
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: #fbfbfe;
+  color: #0e0e1a;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html.dark body {
+  background-color: #0b0a16;
+  color: #f5f5f7;
+}
+
+/* ---------- Headings — kept bold for hierarchy, medium body text everywhere else ---------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: inherit;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+p,
+span,
+li,
+a,
+button,
+input,
+textarea,
+label {
+  font-family: inherit;
+  font-weight: 500;
+}
+
+/* Utility if you want a lighter/heavier pass on specific text */
+.fw-regular { font-weight: 400 !important; }
+.fw-medium  { font-weight: 500 !important; }
+.fw-semibold{ font-weight: 600 !important; }
+.fw-bold    { font-weight: 700 !important; }
+.fw-extrabold { font-weight: 800 !important; }
+
+/* ---------- Links & buttons ---------- */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- Selection ---------- */
+::selection {
+  background: rgba(108, 60, 245, 0.25);
+  color: inherit;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6c3cf5, #2f6cf6);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5b2fe0, #245ee0);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #6c3cf5 transparent;
+}
+
+/* ---------- Focus visibility (accessibility, still on-brand) ---------- */
+:focus-visible {
+  outline: 2px solid #2f6cf6;
+  outline-offset: 3px;
+  border-radius: 4px;
+}

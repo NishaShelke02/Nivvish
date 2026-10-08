@@ -1,0 +1,377 @@
+/* ==========================================================================
+   Navbar.css — Modern 3D Animated Navigation (with Dark Mode toggle)
+   ========================================================================== */
+
+:root {
+  --nav-bg: rgba(15, 15, 25, 0.55);
+  --nav-bg-scrolled: rgba(10, 10, 18, 0.85);
+  --accent: #6c5ce7;
+  --accent-2: #00d2ff;
+  --text: #f5f5f7;
+  --text-dim: rgba(245, 245, 247, 0.75);
+  --shadow-color: rgba(108, 92, 231, 0.35);
+}
+
+/* Light theme overrides (applied when <html> does NOT have .dark) */
+html:not(.dark) {
+  --nav-bg: rgba(255, 255, 255, 0.65);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.9);
+  --text: #16151f;
+  --text-dim: rgba(22, 21, 31, 0.7);
+  --shadow-color: rgba(108, 92, 231, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ---------- Header / perspective wrapper ---------- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 14px 0;
+  background: var(--nav-bg);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  perspective: 1200px;
+  transition: all 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.header.scrolled {
+  padding: 8px 0;
+  background: var(--nav-bg-scrolled);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 40px var(--shadow-color);
+  border-bottom: 1px solid rgba(108, 92, 231, 0.3);
+}
+
+/* ---------- Navbar container ---------- */
+.navbar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transform-style: preserve-3d;
+}
+
+/* ---------- Logo ---------- */
+.logo {
+  display: flex;
+  align-items: center;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.logo:hover {
+  transform: rotateY(12deg) rotateX(4deg) scale(1.05);
+}
+
+.logo-img {
+  width: 130px;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(108, 92, 231, 0.4));
+  transition: filter 0.4s ease;
+}
+
+.logo:hover .logo-img {
+  filter: drop-shadow(0 6px 18px rgba(0, 210, 255, 0.55));
+}
+
+/* ---------- Nav links ---------- */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transform-style: preserve-3d;
+}
+
+.nav-links li {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.nav-links li a {
+  position: relative;
+  display: inline-block;
+  padding: 8px 14px;
+  color: var(--text-dim);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-decoration: none;
+  transform-style: preserve-3d;
+  transition: color 0.35s ease, transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* 3D tilt-up hover effect */
+.nav-links li a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  opacity: 0;
+  transform: translateZ(-12px) scale(0.85);
+  transition: all 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -1;
+}
+
+/* Animated underline */
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.nav-links li a:hover {
+  color: var(--text);
+  transform: translateY(-3px) rotateX(12deg);
+}
+
+.nav-links li a:hover::before {
+  opacity: 0.15;
+  transform: translateZ(-8px) scale(1);
+}
+
+.nav-links li a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Right side group (theme toggle + CTA) ---------- */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---------- Theme toggle ---------- */
+.theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.theme-btn:hover {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  transform: rotate(25deg) scale(1.08);
+  box-shadow: 0 6px 16px var(--shadow-color);
+}
+
+/* ---------- CTA Button ---------- */
+.quote-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  background-size: 200% 200%;
+  box-shadow: 0 6px 20px var(--shadow-color), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1),
+    box-shadow 0.45s ease, background-position 0.6s ease;
+}
+
+.quote-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: left 0.7s ease;
+}
+
+.quote-btn:hover {
+  transform: translateY(-3px) rotateX(10deg) scale(1.05);
+  box-shadow: 0 12px 30px var(--shadow-color), 0 0 25px var(--accent-2);
+  background-position: 100% 50%;
+}
+
+.quote-btn:hover::before {
+  left: 125%;
+}
+
+.quote-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ---------- Mobile menu button ---------- */
+.mobile-btn {
+  display: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  font-size: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mobile-btn:hover {
+  background: rgba(108, 92, 231, 0.25);
+  transform: rotateY(180deg);
+  box-shadow: 0 4px 14px var(--shadow-color);
+}
+
+/* ==========================================================================
+   Responsive — 3D slide-in mobile menu
+   ========================================================================== */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .mobile-btn {
+    display: flex;
+    order: 3;
+  }
+
+  .nav-right {
+    order: 2;
+  }
+
+  .quote-btn {
+    display: none;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(78vw, 320px);
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    margin: 0;
+    padding: 100px 28px 40px;
+    background: linear-gradient(
+      160deg,
+      rgba(18, 16, 32, 0.98),
+      rgba(30, 20, 55, 0.98)
+    );
+    backdrop-filter: blur(18px);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%) rotateY(-25deg);
+    transform-origin: right center;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+      opacity 0.5s ease;
+  }
+
+  html:not(.dark) .nav-links {
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(240, 238, 250, 0.98)
+    );
+  }
+
+  .nav-links.active {
+    transform: translateX(0) rotateY(0deg);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-links li {
+    width: 100%;
+    opacity: 0;
+    transform: translateX(40px);
+    animation: navItemIn 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+
+  .nav-links.active li:nth-child(1) { animation-delay: 0.08s; }
+  .nav-links.active li:nth-child(2) { animation-delay: 0.14s; }
+  .nav-links.active li:nth-child(3) { animation-delay: 0.20s; }
+  .nav-links.active li:nth-child(4) { animation-delay: 0.26s; }
+  .nav-links.active li:nth-child(5) { animation-delay: 0.32s; }
+  .nav-links.active li:nth-child(6) { animation-delay: 0.38s; }
+
+  .nav-links li a {
+    display: block;
+    width: 100%;
+    padding: 13px 10px;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  }
+
+  .nav-links li a::after {
+    left: 10px;
+    right: 10px;
+  }
+}
+
+@keyframes navItemIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Subtle floating glow behind header for extra depth */
+.header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at 15% 0%,
+    rgba(108, 92, 231, 0.12),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.header.scrolled::after {
+  opacity: 1;
+}

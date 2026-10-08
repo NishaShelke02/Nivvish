@@ -1,0 +1,469 @@
+/* ==========================================================================
+   DevelopmentProcess.css — matches Home / OurExpertise / WhyChooseUs system
+   Fully responsive: desktop → tablet → mobile → small mobile
+   ========================================================================== */
+
+:root {
+  --proc-bg-1: #f7f9ff;
+  --proc-bg-2: #ffffff;
+  --accent: #6c3cf5;
+  --accent-2: #2f6cf6;
+  --accent-3: #8b5cf6;
+  --text: #0e0e1a;
+  --text-dim: #4b4b5a;
+  --text-dimmer: #6f6f80;
+  --card-bg: #ffffff;
+  --card-border: rgba(20, 20, 40, 0.08);
+  --tag-bg: #eef2ff;
+  --number-color: rgba(20, 20, 40, 0.06);
+  --shadow-color: rgba(76, 60, 240, 0.2);
+  --shadow-soft: rgba(20, 20, 40, 0.08);
+  --blob-1: rgba(108, 60, 245, 0.16);
+  --blob-2: rgba(47, 108, 246, 0.14);
+}
+
+html.dark {
+  --proc-bg-1: #14112a;
+  --proc-bg-2: #0b0a16;
+  --text: #f5f5f7;
+  --text-dim: rgba(245, 245, 247, 0.7);
+  --text-dimmer: rgba(245, 245, 247, 0.5);
+  --card-bg: #1a1730;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --tag-bg: rgba(79, 70, 229, 0.16);
+  --number-color: rgba(255, 255, 255, 0.05);
+  --shadow-color: rgba(108, 92, 231, 0.4);
+  --shadow-soft: rgba(0, 0, 0, 0.35);
+  --blob-1: rgba(108, 60, 245, 0.28);
+  --blob-2: rgba(47, 108, 246, 0.22);
+}
+
+/* ============================
+      SECTION WRAPPER
+============================ */
+
+.developmentProcess {
+  position: relative;
+  overflow: hidden;
+  padding: 110px 0;
+  background: linear-gradient(180deg, var(--proc-bg-1) 0%, var(--proc-bg-2) 100%);
+  perspective: 1600px;
+  transition: background 0.4s ease;
+}
+
+.developmentProcess::before,
+.developmentProcess::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.developmentProcess::before {
+  width: 340px;
+  height: 340px;
+  top: -90px;
+  left: -100px;
+  background: var(--blob-1);
+  animation: floatBlob 12s ease-in-out infinite;
+}
+
+.developmentProcess::after {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  right: -90px;
+  background: var(--blob-2);
+  animation: floatBlob 14s ease-in-out infinite reverse;
+}
+
+@keyframes floatBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(24px, -18px) scale(1.08); }
+}
+
+.developmentProcess .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+}
+
+/* ============================
+      SECTION HEADER
+============================ */
+
+.sectionHeader {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 70px;
+  padding: 0 8px;
+}
+
+.sectionHeader span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--accent);
+  background: var(--tag-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 16px var(--shadow-soft);
+  margin-bottom: 18px;
+  animation: tagPulse 3s ease-in-out infinite,
+    fadeSlideUp 0.6s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+@keyframes tagPulse {
+  0%, 100% { box-shadow: 0 4px 16px var(--shadow-soft); }
+  50% { box-shadow: 0 4px 22px var(--shadow-color); }
+}
+
+.sectionHeader h2 {
+  font-size: clamp(24px, 3.6vw, 36px);
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 16px;
+  letter-spacing: -0.4px;
+  animation: fadeSlideUp 0.7s 0.05s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.sectionHeader p {
+  font-size: clamp(13px, 1.1vw, 14.5px);
+  line-height: 1.85;
+  color: var(--text-dim);
+  animation: fadeSlideUp 0.8s 0.1s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================
+      PROCESS GRID
+============================ */
+
+.processGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 26px;
+}
+
+/* Connecting flow line across each row (desktop only) */
+.processGrid::before {
+  content: "";
+  position: absolute;
+  top: 64px;
+  left: 16.5%;
+  width: 67%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0px,
+    var(--accent) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  opacity: 0.35;
+  z-index: 0;
+}
+
+/* ============================
+      CARD
+============================ */
+
+.processCard {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 22px;
+  padding: 40px 28px 32px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  box-shadow: 0 15px 35px var(--shadow-soft);
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+    box-shadow 0.5s ease, border-color 0.4s ease;
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.processGrid .processCard:nth-child(1) { animation-delay: 0.05s; }
+.processGrid .processCard:nth-child(2) { animation-delay: 0.12s; }
+.processGrid .processCard:nth-child(3) { animation-delay: 0.19s; }
+.processGrid .processCard:nth-child(4) { animation-delay: 0.26s; }
+.processGrid .processCard:nth-child(5) { animation-delay: 0.33s; }
+.processGrid .processCard:nth-child(6) { animation-delay: 0.4s; }
+
+/* Shine sweep on hover */
+.processCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transition: 0.8s;
+  pointer-events: none;
+}
+
+.processCard:hover::before {
+  left: 100%;
+}
+
+.processCard:hover {
+  transform: translateY(-12px) rotateX(6deg) rotateY(-4deg) scale(1.02);
+  box-shadow: 0 30px 55px var(--shadow-color);
+  border-color: var(--accent-2);
+}
+
+/* Big faded step number in the background */
+
+.stepNumber {
+  position: absolute;
+  top: 6px;
+  right: 18px;
+  font-size: 64px;
+  font-weight: 800;
+  color: var(--number-color);
+  line-height: 1;
+  z-index: 0;
+  transition: color 0.4s ease, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.processCard:hover .stepNumber {
+  color: var(--shadow-color);
+  transform: translateZ(10px) scale(1.06);
+}
+
+/* Icon */
+
+.processCard .icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  font-size: 22px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 14px 28px var(--shadow-color);
+  animation: float 4s ease-in-out infinite;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.processCard:hover .icon {
+  transform: translateZ(30px) rotateY(180deg);
+}
+
+/* Text */
+
+.processCard h3 {
+  position: relative;
+  z-index: 1;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 12px;
+  transform: translateZ(20px);
+}
+
+.processCard p {
+  position: relative;
+  z-index: 1;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-dim);
+  margin: 0;
+  transform: translateZ(15px);
+}
+
+/* ==========================================================================
+   Responsive
+   Breakpoints: 1200 / 1024 / 900 / 768 / 600 / 480 / 360
+   ========================================================================== */
+
+/* ----- Large tablets / small laptops ----- */
+@media (max-width: 1200px) {
+  .developmentProcess .container {
+    padding: 0 24px;
+  }
+}
+
+/* ----- Tablets: two-up grid ----- */
+@media (max-width: 1024px) {
+  .developmentProcess {
+    padding: 90px 0;
+  }
+
+  .processGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .processGrid::before {
+    display: none;
+  }
+
+  .sectionHeader {
+    margin-bottom: 56px;
+  }
+}
+
+/* ----- Small tablets ----- */
+@media (max-width: 900px) {
+  .developmentProcess .container {
+    padding: 0 20px;
+  }
+
+  .processCard {
+    padding: 36px 26px 30px;
+  }
+
+  .stepNumber {
+    font-size: 56px;
+  }
+}
+
+/* ----- Phones: single column ----- */
+@media (max-width: 768px) {
+  .developmentProcess {
+    padding: 70px 0;
+  }
+
+  .developmentProcess .container {
+    padding: 0 18px;
+  }
+
+  .sectionHeader {
+    margin-bottom: 44px;
+    padding: 0;
+  }
+
+  .processGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .processCard {
+    padding: 34px 24px 28px;
+  }
+
+  .stepNumber {
+    font-size: 52px;
+    top: 4px;
+    right: 16px;
+  }
+
+  .processCard .icon {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  .processCard h3 {
+    font-size: 18px;
+  }
+}
+
+/* ----- Small phones ----- */
+@media (max-width: 600px) {
+  .developmentProcess {
+    padding: 56px 0;
+  }
+
+  .developmentProcess .container {
+    padding: 0 16px;
+  }
+
+  .sectionHeader span {
+    font-size: 11px;
+    padding: 7px 14px;
+  }
+
+  .sectionHeader {
+    margin-bottom: 36px;
+  }
+
+  .processCard {
+    padding: 28px 20px 24px;
+    border-radius: 18px;
+  }
+
+  .stepNumber {
+    font-size: 44px;
+  }
+
+  .processCard .icon {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .processCard h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+  }
+
+  .processCard p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .developmentProcess::before,
+  .developmentProcess::after {
+    filter: blur(70px);
+    opacity: 0.7;
+  }
+}
+
+/* ----- Very small phones ----- */
+@media (max-width: 360px) {
+  .processCard {
+    padding: 24px 16px 20px;
+  }
+
+  .stepNumber {
+    font-size: 36px;
+    right: 12px;
+  }
+}
+
+/* ----- Respect reduced motion preference ----- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
